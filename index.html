@@ -3,58 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contas a Receber</title>
-  <link href="styles.css" rel="stylesheet" />
+  <title>Contas a Receber — Firebase</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet" />
+
 </head>
 <body class="bg-light">
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
   <div class="container">
     <a class="navbar-brand" href="#">Contas a Receber</a>
-    <div>
-      <button id="btnExport" class="btn btn-outline-light btn-sm me-2">Exportar JSON</button>
-      <label class="btn btn-outline-light btn-sm mb-0">
-        Importar JSON <input id="fileImport" type="file" accept=".json" hidden>
-      </label>
+    <div id="navArea">
+      <!-- será preenchido dinamicamente -->
     </div>
   </div>
 </nav>
 
-<div class="container">
-  <div class="row g-3 mb-3">
-    <div class="col-md-6">
-      <div class="card p-3">
-        <h5>Cadastrar Cliente</h5>
-        <form id="formCadastrar">
-          <div class="mb-2">
-            <label class="form-label">Nome</label>
-            <input id="nome" class="form-control" required />
-          </div>
-          <div class="mb-2">
-            <label class="form-label">Vencimento (dd/mm/aaaa)</label>
-            <input id="vencimento" class="form-control" placeholder="dd/mm/aaaa" />
-          </div>
-          <div class="mb-2">
-            <label class="form-label">Valor total (R$)</label>
-            <input id="valor_total" type="number" step="0.01" class="form-control" required />
-          </div>
-          <button class="btn btn-primary" type="submit">Salvar</button>
-        </form>
-      </div>
-    </div>
+<div class="container" id="app">
 
+  <!-- auth area -->
+  <div id="authArea" class="row justify-content-center">
     <div class="col-md-6">
       <div class="card p-3">
-        <h5>Resumo</h5>
-        <p>Total geral a receber: <strong id="totalGeral">R$ 0.00</strong></p>
-        <p>Total clientes: <span id="qtdClientes">0</span></p>
+        <h5 id="authTitle">Entrar</h5>
+
+        <div id="authAlert"></div>
+
+        <form id="formLogin">
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+            <input id="email" class="form-control" type="email" required />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Senha</label>
+            <input id="password" class="form-control" type="password" required />
+          </div>
+
+          <div class="d-flex gap-2">
+            <button id="btnLogin" class="btn btn-primary">Entrar</button>
+            <button id="btnGotoSignup" type="button" class="btn btn-outline-secondary">Registrar</button>
+            <button id="btnGoogle" type="button" class="btn btn-outline-danger ms-auto">Entrar com Google</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>
 
-  <div id="lista" class="row"></div>
+  <!-- main app area (aparecerá quando logado) -->
+  <div id="mainArea" style="display:none;">
+    <div class="row g-3 mb-3">
+      <div class="col-md-5">
+        <div class="card p-3">
+          <h5>Cadastrar Cliente</h5>
+          <form id="formCadastrar">
+            <div class="mb-2">
+              <label class="form-label">Nome</label>
+              <input id="nome" class="form-control" required />
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Vencimento</label>
+              <input id="vencimento" class="form-control" placeholder="dd/mm/aaaa" />
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Valor total (R$)</label>
+              <input id="valor_total" type="number" step="0.01" class="form-control" required />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Salvar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">Lista de Contas</h5>
+            <div>
+              <strong>Total a receber: R$ <span id="totalGeral">0.00</span></strong>
+            </div>
+          </div>
+
+          <div id="lista" class="row"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<script src="app.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
