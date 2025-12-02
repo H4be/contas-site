@@ -1,4 +1,4 @@
-body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
 .card { border-radius: 10px; }
-.client-card { min-height: 150px; }
+.client-card { min-height: 140px; }
 .small-muted { font-size: 0.9rem; color: #666; }
